@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import logo from '../assets/crypto-logo.png';
 import arrow_icon from '../assets/arrow_icon.png';
 import { CoinContext } from '../context/CoinContext';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -37,9 +38,9 @@ const Navbar = () => {
 
   return (
     <div className='flex items-center justify-between py-5 px-[4%] lg:px-[10%]  text-[#ddd] border-b border-2 border-[#3c3c3c]'>
-      <img className='max-w-[max(12vh,120px)] rounded-lg' src={logo} alt="Crypto Logo" />
+      <Link to={'/'}><img className='max-w-[max(12vh,180px)] rounded-lg' src={logo} alt="Crypto Logo" /></Link>
       <ul className='hidden sm:flex gap-5 md:gap-10 '>
-        <li className='cursor-pointer'>Home</li>
+        <Link to={'/'}><li className='cursor-pointer'>Home</li></Link>
         <li className='cursor-pointer'>Features</li>
         <li className='cursor-pointer'>Pricing</li>
         <li className='cursor-pointer'>Blog</li>
