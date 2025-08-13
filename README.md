@@ -101,3 +101,13 @@ VITE_Backend_URL
 ```bash
 npm run dev
 ```
+
+## DB Image
+![DB Image]('./assets/db1.png)
+![DB Image]('./assets/db2.png)
+
+## Cron image
+![CRON Image]('./assets/cron.png)
+
+
+
