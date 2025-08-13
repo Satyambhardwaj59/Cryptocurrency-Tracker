@@ -9,19 +9,8 @@ const historyCoinRoutes = require('./routes/historyCoinRoutes');
 app.use(express.json());
 
 // ✅ Proper CORS configuration
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://cryptocurrency-tracker-fe35.vercel.app"
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: "*", // Allow all origins
   methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
