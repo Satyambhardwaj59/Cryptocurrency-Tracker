@@ -112,15 +112,17 @@ npm run dev
 #### The cron job works as follows:
 
 - Runs at the start of every hour (0 * * * *).
-
 - Calls fetchCoinData() to retrieve live coin data from the CoinGecko API.
-
 - Saves the fetched data into the HistoryDataModel collection for historical tracking.
-
 - Logs success or error messages to the console for debugging.
-
 - This ensures the database always contains up-to-date historical data without manual intervention.
 
+## Working in Local 
+### Home page
+![Home Image](./assets/home.png)
+
+### Chart page
+![Chart Image](./assets/working2.png)
 
 ## DB Image
 ![DB Image](./assets/db1.png)
