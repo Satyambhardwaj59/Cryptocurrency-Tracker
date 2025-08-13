@@ -10,21 +10,21 @@ app.use(express.json());
 
 // ✅ Proper CORS configuration
 const allowedOrigins = [
-    "http://localhost:5173",
-    "https://cryptocurrency-tracker-fe35.vercel.app"
+  "http://localhost:5173",
+  "https://cryptocurrency-tracker-fe35.vercel.app"
 ];
 
 app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl)
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
 }));
+
 
 // Cron job for fetching historical data
 require('./cron/historyJob');
