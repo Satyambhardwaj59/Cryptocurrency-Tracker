@@ -5,7 +5,12 @@ The app displays real-time crypto data, allows searching/filtering, and has both
 
 ---
 
-## Live Link
+## Live Frontend Link
+```bash
+https://cryptocurrency-tracker-fe35.vercel.app
+```
+
+## Live Backend Link
 ```bash
 
 ```

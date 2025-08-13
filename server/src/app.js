@@ -8,8 +8,21 @@ const historyCoinRoutes = require('./routes/historyCoinRoutes');
 
 app.use(express.json());
 
+// ✅ Proper CORS configuration
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://cryptocurrency-tracker-fe35.vercel.app"
+];
+
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
@@ -25,7 +38,6 @@ connectionDB().then(() => {
     app.listen(7777, () => {
         console.log("Server is running on port 7777");
     });
-    
 }).catch(err => {
     console.log("DB connection failed", err);
-})
+});
