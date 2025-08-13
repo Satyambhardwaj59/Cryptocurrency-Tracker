@@ -13,7 +13,7 @@ const CoinContextProvider = (props) => {
     });
 
     const fetchAllCoin = async () => {
-        const responce = await fetch(`${Backend_URL}`);
+        const responce = await fetch(`${Backend_URL}/api/coins`);
         const data = await responce.json();
         setLastUpdate(data.lastUpdated)
         setAllCoin(data.data);
