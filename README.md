@@ -45,9 +45,20 @@ cryptocurrency-tracker/
 │ └── tailwind.config.js
 │
 └── server/ # Node.js + Express backend
-├── routes/
-├── controllers/
-├── index.js
+├── src/
+│ ├── app.js 
+│ │
+│ ├── config/ # Configuration
+│ │ └── db.js # MongoDB connection
+│ │
+│ ├── models/ # Mongoose models
+│ │
+│ ├── routes/ # Express routes
+│ │
+│ ├── fetchData/ # External API fetching (coinGecko Fetch crypto data)
+│ │
+│ ├── cron/ # Scheduled jobs
+│
 ├── package.json
 └── .env
 ```
