@@ -7,6 +7,7 @@ import ShimmerUI from '../components/ShimmerUI';
 const CoinGecko_API_Key = import.meta.env.VITE_CoinGecko_API_Key;
 
 
+
 const Coin = () => {
 
   const { coinId } = useParams();
@@ -17,7 +18,7 @@ const Coin = () => {
   const fetchCoinData = async () => {
     const options = {
       method: 'GET',
-      headers: { accept: 'application/json', 'x-cg-demo-api-key': CoinGecko_API_Key }
+      headers: { accept: 'application/json', 'x-cg-demo-api-key': "CG-ubnGkBjvWkbhMtgNMxefmnnk" }
     };
 
     fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`, options)
@@ -29,7 +30,7 @@ const Coin = () => {
   const fetchHistoricalData = async () => {
     const options = {
       method: 'GET',
-      headers: { accept: 'application/json', 'x-cg-demo-api-key': CoinGecko_API_Key }
+      headers: { accept: 'application/json', 'x-cg-demo-api-key': "CG-ubnGkBjvWkbhMtgNMxefmnnk" }
     };
 
     fetch(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=${currency.name}&days=10&interval=daily`, options)
