@@ -10,10 +10,9 @@ app.use(express.json());
 
 // ✅ Proper CORS configuration
 app.use(cors({
-  origin: "*", // Allow all origins
-  methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "http://localhost:5173",
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
 }));
-
 
 // Cron job for fetching historical data
 require('./cron/historyJob');
