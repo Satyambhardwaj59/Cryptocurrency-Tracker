@@ -102,6 +102,21 @@ VITE_Backend_URL
 npm run dev
 ```
 
+## ⏳ Cron Job for Hourly Coin Data
+### This project uses the node-cron package to automatically fetch and store cryptocurrency data every hour.
+#### The cron job works as follows:
+
+- Runs at the start of every hour (0 * * * *).
+
+- Calls fetchCoinData() to retrieve live coin data from the CoinGecko API.
+
+- Saves the fetched data into the HistoryDataModel collection for historical tracking.
+
+- Logs success or error messages to the console for debugging.
+
+- This ensures the database always contains up-to-date historical data without manual intervention.
+
+
 ## DB Image
 ![DB Image](./assets/db1.png)
 ![DB Image](./assets/db2.png)
