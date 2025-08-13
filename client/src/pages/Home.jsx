@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 const Home = () => {
 
-    const { allCoin, currency } = useContext(CoinContext);
+    const { allCoin, localTime } = useContext(CoinContext);
     const [displayCoin, setDisplayCoin] = useState([]);
     const [input, setInput] = useState('');
 
@@ -35,32 +35,37 @@ const Home = () => {
                     <input onChange={inputHandler} list='coinlist' value={input} type="text" placeholder='Search crypto' required className='flex-1 text-base pl-2.5 outline-none border-none  text-gray-600' />
 
                     <datalist id='coinlist'>
-                        {allCoin.map((item, index) => (<option key={index} value={item.name} />))}
+                        { allCoin.map((item, index) => (<option key={index} value={item.name} />))}
                     </datalist>
 
                     <button className='border-none bg-[#7927ff] text-white text-base py-1.5 sm:py-2.5 px-3 sm:px-7 rounded-lg cursor-pointer' type='submit'>Search</button>
                 </form>
             </div>
+            
+                <div className='max-w-[800px] m-auto text-right' >
+                <p className='text-2xl font-semibold pb-4'>Last Update: {localTime}</p>
+            </div>
             <div className='max-w-[800px] m-auto rounded-2xl bg-[linear-gradient(rgba(84,3,255,0.15),rgba(105,2,153,0.15))]'>
-                <div className="grid grid-cols-[0.5fr_3fr_1fr_1fr] sm:grid-cols-[0.5fr_2fr_1fr_1fr_1.5fr] py-4 px-5 items-center border-b border-b-[#3c3c3c]">
+                <div className="grid grid-cols-[0.5fr_2.5fr_1fr_1fr] sm:grid-cols-[0.5fr_1.5fr_1fr_1fr_1.5fr] py-4 px-5 items-center border-b border-b-[#3c3c3c]">
                     <p className='text-xs sm:text-base '>S.No</p>
-                    <p className='text-xs sm:text-base text-center'>Coins</p>
+                    <p className='text-xs sm:text-base '>Coins</p>
                     <p className='text-xs sm:text-base'>Price</p>
                     <p className='text-center text-xs sm:text-base'>24h Change</p>
                     <p className='hidden text-right sm:flex'>Market Cap</p>
                 </div>
                 {displayCoin.map((item, index) => {
-                    return <Link to={`/coin/${item.id}`} key={index} className='grid grid-cols-[0.5fr_3fr_1fr_1fr] sm:grid-cols-[0.5fr_2fr_1fr_1fr_1.5fr] py-4 px-5 items-center border-b border-b-[#3c3c3c] last:border-none'>
+                    return <Link to={`/coin/${item.name.toLowerCase()}`} key={index} className='grid grid-cols-[0.5fr_2.5fr_1fr_1fr] sm:grid-cols-[0.5fr_1.5fr_1fr_1fr_1.5fr] py-4 px-5 items-center border-b border-b-[#3c3c3c] last:border-none'>
                         
-                        <p>{item.market_cap_rank}</p>
+                        <p>{index +1}</p>
 
                         <div className='flex text-xs sm:text-base items-center gap-2.5'>
-                            <img className='w-6 sm:w-9' src={item.image} alt={item.name} />
+                            {/* <img className='w-6 sm:w-9' src={item.image} alt={item.name} /> */}
                             <p>{item.name + ' - ' + item.symbol}</p>
                         </div>
-                        <p className='text-xs sm:text-base'>{currency.Symbol} {item.current_price.toLocaleString()}</p>
-                        <p className={`text-center ${item.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-green-500'}`}>{Math.floor(item.price_change_percentage_24h * 100) / 100}</p>
-                        <p className='hidden sm:flex text-right'>{currency.Symbol} {item.market_cap.toLocaleString()}</p>
+                        <p className='text-xs sm:text-base'>$ {item.price_usd.toLocaleString()}</p>
+                        <p className={`text-center ${item.change_24h < 0 ? 'text-red-500' : 'text-green-500'}`}>{Math.floor(item.change_24h * 100) / 100}</p>
+                        <p className='hidden sm:flex '>$ {item.market_cap.toLocaleString()}</p>
+                        
                     </Link>
                 })}
             </div>

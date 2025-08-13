@@ -6,10 +6,9 @@ const { fetchCoinData } = require('../fetchData/coinGeckoData');
 // GET /api/coins
 router.get('/', async (req, res) => {
     try {
-        console.log("Fetching current coin data...");
+
         const coins = await fetchCoinData();
 
-        // Upsert into CurrentData collection
         for (const coin of coins) {
             await CurrentDataModel.updateOne(
                 { coin_id: coin.coin_id },
@@ -18,7 +17,12 @@ router.get('/', async (req, res) => {
             );
         }
 
-        res.json(coins);
+          const coinsWithTimestamp = {
+            lastUpdated: new Date(), // server time
+            data: coins
+        };
+
+        res.json(coinsWithTimestamp);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch coin data', details: error.message });
     }

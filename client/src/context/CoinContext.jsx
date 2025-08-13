@@ -1,30 +1,47 @@
 import { createContext, useEffect, useState } from "react";
+const Backend_URL = import.meta.env.VITE_Backend_URL;
 
 export const CoinContext = createContext();
 
 const CoinContextProvider = (props) => {
 
     const [allCoin, setAllCoin] = useState([]);
+    const [lastUpdate, setLastUpdate] = useState();
     const [currency, setCurrency] = useState({
         name: 'usd',
         Symbol: '$'
     });
 
     const fetchAllCoin = async () => {
-        const responce = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=10&page=1`);
+        const responce = await fetch(`${Backend_URL}`);
         const data = await responce.json();
-        setAllCoin(data);
+        setLastUpdate(data.lastUpdated)
+        setAllCoin(data.data);
     }
 
     useEffect(() => {
         fetchAllCoin();
-    }, [currency]);
+
+        // refresh every 30 minutes
+        const interval = setInterval(() => {
+            fetchAllCoin();
+        }, 30 * 60 * 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    // convert local time 
+    const localTime = new Date(lastUpdate).toLocaleString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+    });
 
     const contextValue = {
         allCoin,
         currency,
         setCurrency,
-
+        localTime
     }
 
     return (
@@ -32,7 +49,7 @@ const CoinContextProvider = (props) => {
             {props.children}
         </CoinContext.Provider>
     )
-   
+
 };
 
 export default CoinContextProvider;
