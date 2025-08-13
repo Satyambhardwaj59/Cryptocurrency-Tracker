@@ -2,11 +2,23 @@ require('dotenv').config();
 const express = require('express');
 const connectionDB = require('./config/database');
 const app = express();
+const cors = require('cors');
+const currentCoinRoutes = require('./routes/currentCoinRoutes');
+const historyCoinRoutes = require('./routes/historyCoinRoutes');
+
+app.use(express.json());
 
 app.use(cors({
     origin: "http://localhost:5173",
-    methods: ["GET,POST,PUT,DELETE"],
-}))
+    methods: ["GET", "POST", "PUT", "DELETE"],
+}));
+
+// Cron job for fetching historical data
+require('./cron/historyJob');
+
+// Routes
+app.use('/api/coins', currentCoinRoutes);
+app.use('/api/history', historyCoinRoutes);
 
 connectionDB().then(() => {
     console.log("DB connected");
