@@ -15,7 +15,6 @@ async function fetchCoinData() {
             }
         );
 
-        // Map API response to match schema fields
         return data.map(coin => ({
             coin_id: coin.id,
             name: coin.name,
@@ -24,7 +23,6 @@ async function fetchCoinData() {
             market_cap: coin.market_cap,
             change_24h: coin.price_change_percentage_24h
         }));
-
     } catch (error) {
         console.error("fetchCoinData failed:", error.message);
         throw new Error("fetchCoinData failed");

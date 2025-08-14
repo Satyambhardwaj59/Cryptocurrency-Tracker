@@ -1,30 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const CurrentDataModel = require('../models/currentDataModel');
-const { fetchCoinData } = require('../fetchData/coinGeckoData');
 
-// GET /api/coins
+// GET /api/coins — returns data from DB only
 router.get('/', async (req, res) => {
     try {
-
-        const coins = await fetchCoinData();
-
-        for (const coin of coins) {
-            await CurrentDataModel.updateOne(
-                { coin_id: coin.coin_id },
-                { $set: coin },
-                { upsert: true }
-            );
+        const coins = await CurrentDataModel.find();
+        if (!coins.length) {
+            return res.status(404).json({ error: "No data found. Wait for cron job." });
         }
-
-          const coinsWithTimestamp = {
-            lastUpdated: new Date(), // server time
+        res.json({
+            lastUpdated: coins[0]?.updatedAt || null,
             data: coins
-        };
-
-        res.json(coinsWithTimestamp);
+        });
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch coin data', details: error.message });
+        res.status(500).json({ error: 'Failed to fetch coin data from DB', details: error.message });
     }
 });
 
