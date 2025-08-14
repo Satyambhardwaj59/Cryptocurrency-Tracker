@@ -6,7 +6,6 @@ export const CoinContext = createContext();
 const CoinContextProvider = (props) => {
 
     const [allCoin, setAllCoin] = useState([]);
-    const [lastUpdate, setLastUpdate] = useState();
     const [currency, setCurrency] = useState({
         name: 'usd',
         Symbol: '$'
@@ -15,7 +14,6 @@ const CoinContextProvider = (props) => {
     const fetchAllCoin = async () => {
         const responce = await fetch(`${Backend_URL}/api/coins`);
         const data = await responce.json();
-        setLastUpdate(data.lastUpdated)
         setAllCoin(data.data);
     }
 
@@ -30,18 +28,10 @@ const CoinContextProvider = (props) => {
         return () => clearInterval(interval);
     }, []);
 
-    // convert local time 
-    const localTime = new Date(lastUpdate).toLocaleString("en-IN", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true
-    });
-
     const contextValue = {
         allCoin,
         currency,
         setCurrency,
-        localTime
     }
 
     return (

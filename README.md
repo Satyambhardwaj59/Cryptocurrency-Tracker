@@ -12,7 +12,7 @@ https://cryptocurrency-tracker-fe35.vercel.app
 
 ## Live Backend Link
 ```bash
-https://cryptocurrency-tracker-qu46.onrender.com
+https://crypto-server-5xde.onrender.com
 ```
 
 ## 📌 Tech Stack
