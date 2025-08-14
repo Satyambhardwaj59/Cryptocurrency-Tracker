@@ -1,14 +1,17 @@
+// const cron = require('node-cron');
+// const { fetchCoinData } = require('../fetchData/coinGeckoData');
+// const CurrentDataModel = require('../models/currentDataModel');
+// const HistoryDataModel = require('../models/historyDataModel');
+
+// cron/historyJob.js
 const cron = require('node-cron');
-const { fetchCoinData } = require('../fetchData/coinGeckoData');
 const CurrentDataModel = require('../models/currentDataModel');
-const HistoryDataModel = require('../models/historyDataModel');
+const { fetchCoinData } = require('../fetchData/coinGeckoData');
 
 cron.schedule('0 * * * *', async () => { // every hour
-    console.log("⏳ Fetching coin data hourly...");
     try {
         const coins = await fetchCoinData();
 
-        // Update current snapshot
         for (const coin of coins) {
             await CurrentDataModel.updateOne(
                 { coin_id: coin.coin_id },
@@ -17,11 +20,9 @@ cron.schedule('0 * * * *', async () => { // every hour
             );
         }
 
-        // Save to history
-        await HistoryDataModel.insertMany(coins);
-
-        console.log(`✅ Updated current & history for ${coins.length} coins`);
+        console.log("✅ Coin data updated at", new Date());
     } catch (error) {
-        console.error("❌ Cron job failed:", error.message);
+        console.error("❌ Failed to update coin data:", error.message);
     }
 });
+
