@@ -7,7 +7,7 @@ The app displays real-time crypto data, allows searching/filtering, and has both
 
 ## Live Frontend Link
 ```bash
-https://cryptocurrency-tracker-fe35.vercel.app
+https://cryptocurrency-track-git-8f37e0-satyam-kumars-projects-4080f490.vercel.app/
 ```
 
 ## Live Backend Link
