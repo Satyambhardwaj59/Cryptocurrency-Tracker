@@ -13,22 +13,23 @@ const app = express();
 app.use(express.json());
 
 // ✅ CORS for production for all origins
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://cryptocurrency-track-git-8f37e0-satyam-kumars-projects-4080f490.vercel.app"
-];
+// const allowedOrigins = [
+//   "http://localhost:5173",
+//   "https://cryptocurrency-track-git-8f37e0-satyam-kumars-projects-4080f490.vercel.app"
+// ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE"],
-}));
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+// }));
 
+app.use(cors());
 
 // Routes
 app.use('/api/coins', currentCoinRoutes);
